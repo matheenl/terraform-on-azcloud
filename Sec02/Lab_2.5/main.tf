@@ -20,6 +20,7 @@ resource "azurerm_resource_group" "rg" {
 
 data "azurerm_client_config" "current" {}
 
+# Create new Keyvault - Use Random string to randomise names
 resource "azurerm_key_vault" "rg" {
   name                = "TFKeyvault${random_string.random.id}"
   location            = azurerm_resource_group.rg.location
