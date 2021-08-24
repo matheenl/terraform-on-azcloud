@@ -4,6 +4,13 @@ provider "azurerm" {
   features {}
 }
 
+resource "random_string" "random" {
+  length           = 8
+  special          = false
+  lower            = true
+  override_special = "/@£$"
+}
+
 resource "azurerm_resource_group" "rg" {
   name     = "Terra-rg"
   location = "West Europe"
@@ -30,7 +37,7 @@ resource "azurerm_key_vault" "rg" {
 }
 
 resource "azurerm_storage_account" "rg" {
-  name                     = "remotesa01"
+  name                     = "remotesa01-${random_string.random.id}"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
