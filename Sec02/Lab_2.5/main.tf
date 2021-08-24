@@ -8,6 +8,8 @@ resource "random_string" "random" {
   length           = 8
   special          = false
   lower            = true
+  upper            = false
+  number           = true
   override_special = "/@£$"
 }
 
@@ -19,7 +21,7 @@ resource "azurerm_resource_group" "rg" {
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "rg" {
-  name                = "kvult-01"
+  name                = "TFKeyvault${random_string.random.id}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   tenant_id           = data.azurerm_client_config.current.tenant_id
@@ -37,7 +39,7 @@ resource "azurerm_key_vault" "rg" {
 }
 
 resource "azurerm_storage_account" "rg" {
-  name                     = "remotesa01-${random_string.random.id}"
+  name                     = "remotesa01${random_string.random.id}"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
