@@ -1,5 +1,5 @@
 data "azurerm_key_vault" "kv01" {
-  name                = "Kvult-01"
+  name                = "TFKeyvaultsmdiyc0z"
   resource_group_name = "Terra-rg"
 }
 
